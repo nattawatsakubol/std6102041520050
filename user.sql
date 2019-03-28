@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 28, 2019 at 04:58 AM
+-- Generation Time: Mar 28, 2019 at 05:07 AM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
@@ -23,17 +23,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `private_owner`
+-- Table structure for table `user`
 --
 
-CREATE TABLE `private_owner` (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `owner_no` varchar(5) NOT NULL,
-  `first_name` varchar(300) NOT NULL,
-  `last_name` varchar(300) NOT NULL,
-  `address` text,
-  `telephone` int(11) DEFAULT NULL,
-  `user_id` varchar(45) NOT NULL
+  `update_at` varchar(45) DEFAULT NULL,
+  `username` varchar(16) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_active` enum('Active','Inactive') NOT NULL DEFAULT 'Active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -41,29 +42,12 @@ CREATE TABLE `private_owner` (
 --
 
 --
--- Indexes for table `private_owner`
+-- Indexes for table `user`
 --
-ALTER TABLE `private_owner`
-  ADD PRIMARY KEY (`id`,`user_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `private_owner`
---
-ALTER TABLE `private_owner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `private_owner`
---
-ALTER TABLE `private_owner`
-  ADD CONSTRAINT `user_id` FOREIGN KEY (`id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username_UNIQUE` (`username`),
+  ADD UNIQUE KEY `email_UNIQUE` (`email`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
